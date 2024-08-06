@@ -32,7 +32,7 @@ class Config(object):
    
     LOG_CHANNEL =  "-1002100219353"
    
-    BOT_USERNAME = "" , "MahakxBot"
+    BOT_USERNAME = "MahakxBot"
    
     DATABASE_URL =  ""
 
