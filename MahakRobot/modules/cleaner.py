@@ -3,7 +3,10 @@ import html
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 
-from MahakRobot import ALLOW_EXCL, CustomCommandHandler, dispatcher
+# Ensure you import ALLOW_EXCL from the correct module
+from MahakRobot.config import ALLOW_EXCL  # Adjust the import path if needed
+
+from MahakRobot import CustomCommandHandler, dispatcher
 from MahakRobot.modules.disable import DisableAbleCommandHandler
 from MahakRobot.modules.helper_funcs.chat_status import (
     bot_can_delete,
@@ -22,7 +25,8 @@ command_list = [
     "unignoreblue",
     "listblue",
     "ungignoreblue",
-    "gignoreblue" "start",
+    "gignoreblue",
+    "start",
     "help",
     "settings",
     "donate",
@@ -35,7 +39,6 @@ for handler_list in dispatcher.handlers:
     for handler in dispatcher.handlers[handler_list]:
         if any(isinstance(handler, cmd_handler) for cmd_handler in CommandHandlerList):
             command_list += handler.command
-
 
 def clean_blue_text_must_click(update: Update, context: CallbackContext):
     bot = context.bot
@@ -57,7 +60,6 @@ def clean_blue_text_must_click(update: Update, context: CallbackContext):
 
             if command[0] not in command_list:
                 message.delete()
-
 
 @connection_status
 @bot_can_delete
@@ -83,7 +85,7 @@ def set_blue_text_must_click(update: Update, context: CallbackContext):
             message.reply_text(reply, parse_mode=ParseMode.HTML)
 
         else:
-            reply = "Invalid argument.Accepted values are 'yes', 'on', 'no', 'off'"
+            reply = "Invalid argument. Accepted values are 'yes', 'on', 'no', 'off'"
             message.reply_text(reply)
     else:
         clean_status = sql.is_enabled(chat.id)
@@ -92,7 +94,6 @@ def set_blue_text_must_click(update: Update, context: CallbackContext):
             html.escape(chat.title), clean_status
         )
         message.reply_text(reply, parse_mode=ParseMode.HTML)
-
 
 @user_admin
 def add_bluetext_ignore(update: Update, context: CallbackContext):
@@ -113,7 +114,6 @@ def add_bluetext_ignore(update: Update, context: CallbackContext):
     else:
         reply = "⬤ No command supplied to be ignored."
         message.reply_text(reply)
-
 
 @user_admin
 def remove_bluetext_ignore(update: Update, context: CallbackContext):
@@ -137,7 +137,6 @@ def remove_bluetext_ignore(update: Update, context: CallbackContext):
         reply = "No command supplied to be unignored."
         message.reply_text(reply)
 
-
 @user_admin
 def add_bluetext_ignore_global(update: Update, context: CallbackContext):
     message = update.effective_message
@@ -156,7 +155,6 @@ def add_bluetext_ignore_global(update: Update, context: CallbackContext):
     else:
         reply = "No command supplied to be ignored."
         message.reply_text(reply)
-
 
 @dev_plus
 def remove_bluetext_ignore_global(update: Update, context: CallbackContext):
@@ -177,10 +175,8 @@ def remove_bluetext_ignore_global(update: Update, context: CallbackContext):
         reply = "No command supplied to be unignored."
         message.reply_text(reply)
 
-
 @dev_plus
 def bluetext_ignore_list(update: Update, context: CallbackContext):
-
     message = update.effective_message
     chat = update.effective_chat
 
@@ -188,13 +184,13 @@ def bluetext_ignore_list(update: Update, context: CallbackContext):
     text = ""
 
     if global_ignored_list:
-        text = "The following commands are currently ignored globally from bluetext cleaning :\n"
+        text = "The following commands are currently ignored globally from bluetext cleaning:\n"
 
         for x in global_ignored_list:
             text += f" - <code>{x}</code>\n"
 
     if local_ignore_list:
-        text += "\nThe following commands are currently ignored locally from bluetext cleaning :\n"
+        text += "\nThe following commands are currently ignored locally from bluetext cleaning:\n"
 
         for x in local_ignore_list:
             text += f" - <code>{x}</code>\n"
@@ -206,7 +202,6 @@ def bluetext_ignore_list(update: Update, context: CallbackContext):
 
     message.reply_text(text, parse_mode=ParseMode.HTML)
     return
-
 
 __help__ = """
 
