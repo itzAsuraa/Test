@@ -1,6 +1,6 @@
 import threading
 from sqlalchemy import Column, String, UnicodeText, distinct, func
-from Sql import BASE, SESSION  # Use the base and session from Sql.py
+from .sql import BASE, SESSION  # Use the base and session from Sql.py
 
 DISABLE_INSERTION_LOCK = threading.RLock()
 DISABLED = {}
