@@ -1,20 +1,9 @@
-
 import threading
-from sqlalchemy import Column, String, distinct, func, create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, String, distinct, func
+from Sql import BASE, SESSION
 
-# Define Base and Engine
-BASE = declarative_base()
-
-# Create an engine (replace with your actual database URL)
-engine = create_engine('sqlite:///your_database.db')
-
-# Create a configured "Session" class
-Session = sessionmaker(bind=engine)
-
-# Create a Session instance
-SESSION = Session()
+LOGS_INSERTION_LOCK = threading.RLock()
+CHANNELS = {}
 
 class GroupLogs(BASE):
     __tablename__ = "log_channels"
@@ -26,11 +15,7 @@ class GroupLogs(BASE):
         self.log_channel = str(log_channel)
 
 # Create tables if they don't exist
-BASE.metadata.create_all(bind=engine)
-
-LOGS_INSERTION_LOCK = threading.RLock()
-
-CHANNELS = {}
+BASE.metadata.create_all(bind=SESSION.get_bind())
 
 def set_chat_log_channel(chat_id, log_channel):
     with LOGS_INSERTION_LOCK:
