@@ -1,9 +1,9 @@
 import threading
-
 from sqlalchemy import Column, String, UnicodeText, distinct, func
+from Sql import BASE, SESSION  # Use the base and session from Sql.py
 
-from MahakRobot.modules.sql import BASE, SESSION
-
+DISABLE_INSERTION_LOCK = threading.RLock()
+DISABLED = {}
 
 class Disable(BASE):
     __tablename__ = "disabled_commands"
@@ -11,58 +11,42 @@ class Disable(BASE):
     command = Column(UnicodeText, primary_key=True)
 
     def __init__(self, chat_id, command):
-        self.chat_id = chat_id
-        self.command = command
+        self.chat_id = str(chat_id)
+        self.command = str(command)
 
     def __repr__(self):
         return "Disabled cmd {} in {}".format(self.command, self.chat_id)
 
-
-Disable.__table__.create(checkfirst=True)
-DISABLE_INSERTION_LOCK = threading.RLock()
-
-DISABLED = {}
-
+# Create tables if they don't exist
+BASE.metadata.create_all(bind=SESSION.get_bind())
 
 def disable_command(chat_id, disable):
     with DISABLE_INSERTION_LOCK:
-        disabled = SESSION.query(Disable).get((str(chat_id), disable))
-
+        disabled = SESSION.query(Disable).get((str(chat_id), str(disable)))
         if not disabled:
             DISABLED.setdefault(str(chat_id), set()).add(disable)
-
-            disabled = Disable(str(chat_id), disable)
+            disabled = Disable(str(chat_id), str(disable))
             SESSION.add(disabled)
             SESSION.commit()
             return True
-
-        SESSION.close()
         return False
-
 
 def enable_command(chat_id, enable):
     with DISABLE_INSERTION_LOCK:
-        disabled = SESSION.query(Disable).get((str(chat_id), enable))
-
+        disabled = SESSION.query(Disable).get((str(chat_id), str(enable)))
         if disabled:
-            if enable in DISABLED.get(str(chat_id)):  # sanity check
-                DISABLED.setdefault(str(chat_id), set()).remove(enable)
-
+            if enable in DISABLED.get(str(chat_id), set()):  # Sanity check
+                DISABLED[str(chat_id)].remove(enable)
             SESSION.delete(disabled)
             SESSION.commit()
             return True
-
-        SESSION.close()
         return False
-
 
 def is_command_disabled(chat_id, cmd):
     return str(cmd).lower() in DISABLED.get(str(chat_id), set())
 
-
 def get_all_disabled(chat_id):
     return DISABLED.get(str(chat_id), set())
-
 
 def num_chats():
     try:
@@ -70,13 +54,11 @@ def num_chats():
     finally:
         SESSION.close()
 
-
 def num_disabled():
     try:
         return SESSION.query(Disable).count()
     finally:
         SESSION.close()
-
 
 def migrate_chat(old_chat_id, new_chat_id):
     with DISABLE_INSERTION_LOCK:
@@ -84,12 +66,9 @@ def migrate_chat(old_chat_id, new_chat_id):
         for chat in chats:
             chat.chat_id = str(new_chat_id)
             SESSION.add(chat)
-
         if str(old_chat_id) in DISABLED:
             DISABLED[str(new_chat_id)] = DISABLED.get(str(old_chat_id), set())
-
         SESSION.commit()
-
 
 def __load_disabled_commands():
     global DISABLED
@@ -97,10 +76,7 @@ def __load_disabled_commands():
         all_chats = SESSION.query(Disable).all()
         for chat in all_chats:
             DISABLED.setdefault(chat.chat_id, set()).add(chat.command)
-
     finally:
         SESSION.close()
 
-
 __load_disabled_commands()
-  
