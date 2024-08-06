@@ -1,9 +1,6 @@
 import threading
-
 from sqlalchemy import BigInteger, Column, String
-
-from MahakRobot.modules.sql import BASE, SESSION
-
+from MahakRobot.sql import BASE, SESSION  # Ensure correct import from sql.py
 
 class Approvals(BASE):
     __tablename__ = "approval"
@@ -11,17 +8,16 @@ class Approvals(BASE):
     user_id = Column(BigInteger, primary_key=True)
 
     def __init__(self, chat_id, user_id):
-        self.chat_id = str(chat_id)  # ensure string
+        self.chat_id = str(chat_id)  # Ensure string
         self.user_id = user_id
 
     def __repr__(self):
         return "<Approve %s>" % self.user_id
 
-
-Approvals.__table__.create(checkfirst=True)
+# Create all tables if they don't exist
+BASE.metadata.create_all(bind=SESSION.get_bind())
 
 APPROVE_INSERTION_LOCK = threading.RLock()
-
 
 def approve(chat_id, user_id):
     with APPROVE_INSERTION_LOCK:
@@ -29,13 +25,11 @@ def approve(chat_id, user_id):
         SESSION.add(approve_user)
         SESSION.commit()
 
-
 def is_approved(chat_id, user_id):
     try:
         return SESSION.query(Approvals).get((str(chat_id), user_id))
     finally:
         SESSION.close()
-
 
 def disapprove(chat_id, user_id):
     with APPROVE_INSERTION_LOCK:
@@ -44,10 +38,7 @@ def disapprove(chat_id, user_id):
             SESSION.delete(disapprove_user)
             SESSION.commit()
             return True
-        else:
-            SESSION.close()
-            return False
-
+        return False
 
 def list_approved(chat_id):
     try:
@@ -59,4 +50,3 @@ def list_approved(chat_id):
         )
     finally:
         SESSION.close()
-      
