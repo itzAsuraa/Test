@@ -1,6 +1,6 @@
 import threading
 from sqlalchemy import Column, String, distinct, func
-from Sql import BASE, SESSION
+from MahakRobot.modules.sql  import BASE, SESSION
 
 LOGS_INSERTION_LOCK = threading.RLock()
 CHANNELS = {}
