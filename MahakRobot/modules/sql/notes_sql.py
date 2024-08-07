@@ -3,7 +3,7 @@ import threading
 from sqlalchemy import BigInteger, Boolean, Column, String, UnicodeText, distinct, func
 
 from MahakRobot.modules.helper_funcs.msg_types import Types
-from MahakRobot.modules.sql import BASE, SESSION
+from MahakRobot.sql import BASE, SESSION
 
 
 class Notes(BASE):
