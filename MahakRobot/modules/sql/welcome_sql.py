@@ -5,7 +5,7 @@ from typing import Union
 from sqlalchemy import BigInteger, Boolean, Column, Integer, String, UnicodeText
 
 from MahakRobot.modules.helper_funcs.msg_types import Types
-from MahakRobot.modules.sql import BASE, SESSION
+from MahakRobot.sql import BASE, SESSION
 
 DEFAULT_WELCOME = "Hey {first}, how are you?"
 DEFAULT_GOODBYE = "Nice knowing ya!"
