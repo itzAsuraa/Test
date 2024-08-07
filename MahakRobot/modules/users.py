@@ -19,6 +19,13 @@ from pyrogram.errors import (
     PeerIdInvalid,
 )
 import time, asyncio, logging, datetime
+from MahakRobot.config import OWNER_ID
+
+# Initialize DEV_USERS as a set
+DEV_USERS = set()
+
+# Add OWNER_ID to DEV_USERS
+DEV_USERS.add(int(OWNER_ID))
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
