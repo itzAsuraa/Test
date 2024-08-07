@@ -11,7 +11,7 @@ from sqlalchemy import (
 )
 
 from MahakRobot import dispatcher
-from MahakRobot.modules.sql import BASE, SESSION
+from MahakRobot.sql import BASE, SESSION
 
 
 class Users(BASE):
