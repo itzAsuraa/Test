@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String
 
-from MahakRobot.modules.sql import BASE, SESSION
+from MahakRobot.sql import BASE, SESSION
 
 
 class Nightmode(BASE):
