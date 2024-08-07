@@ -3,7 +3,7 @@ from typing import Union
 
 from sqlalchemy import BigInteger, Boolean, Column, String
 
-from MahakRobot.modules.sql import BASE, SESSION
+from MahakRobot.sql import BASE, SESSION
 
 
 class ReportingUserSettings(BASE):
