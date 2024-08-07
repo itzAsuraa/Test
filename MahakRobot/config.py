@@ -5,9 +5,9 @@ class Config(object):
 
     ANILIST_CLIENT = "8679"
     ANILIST_SECRET = "NeCEq9A1hVnjsjZlTZyNvqK11krQ4HtSliaM7rTN"
-    API_ID = ""
-    API_HASH = ""
-    TOKEN = ""
+    API_ID = "28689465"
+    API_HASH = "fedd61d8e38f8afaed63c01b8438cbe4"
+    TOKEN = "6911638837:AAGr-N1or_-anS4fd6o4oAJQr8pqb4onZtg"
     OWNER_ID = "6454209118"
     OWNER_USERNAME = "itz_Asuraa"
     SUPPORT_CHAT = "AsuraaSupport"
@@ -15,23 +15,24 @@ class Config(object):
     JOIN_LOGGER = "-1002100219353"
     EVENT_LOGS = "-1002100219353"
     ERROR_LOGS = "-1002100219353"
-    MONGO_DB_URI = ""
+    MONGO_DB_URI = "mongodb+srv://BWFMUSIC:BWFMUSIC@cluster0.xwnup2l.mongodb.net/?retryWrites=true&w=majority"
     LOG_CHANNEL = "-1002100219353"
     BOT_USERNAME = "MahakxBot"
-    DATABASE_URL = ""
-    CASH_API_KEY = ""
-    TIME_API_KEY = ""
-    SPAMWATCH_API = ""
-    SPAMWATCH_SUPPORT_CHAT = "AsuraaSupport"
-    WALL_API = ""
-    REM_BG_API_KEY = ""
-    OPENWEATHERMAP_ID = ""
+    DATABASE_URL = "postgresql://maihudon_user:M72zjo7A87EBdjl0ToxA9vTO103Qa7OQ@dpg-cqofeo5svqrc73fg9clg-a.oregon-postgres.render.com/maihudon"
+    CASH_API_KEY = "V48U2FLLKRHSVD4X"
+    TIME_API_KEY = "1CUBX1HXGNHW"
+    SPAMWATCH_API = "3624487efd8e4ca9c949f1ab99654ad1e4de854f41a14afd00f3ca82d808dc8c"
+    SPAMWATCH_SUPPORT_CHAT = "Ravan_Lankaa"
+    WALL_API = "2455acab48f3a935a8e703e54e26d121"
+    REM_BG_API_KEY = "xYCR1ZyK3ZsofjH7Y6hPcyzC"
+    OPENWEATHERMAP_ID = "887da2c60d9f13fe78b0f9d0c5cbaade"
     BAN_STICKER = "CAACAgEAAxkBAAIrTWYljyX_lqcubkAzg0jy45CRvxAFAAKvAgACrLHoRU50VVvh3xWwNAQ"
     HEROKU_APP_NAME = ""
     HEROKU_API_KEY = ""
-    LASTFM_API_KEY = ""
+    LASTFM_API_KEY = "8f3315b5806c21004b2822f07825187d"
     
     # Optional fields
+    
     BL_CHATS = []  # List of groups that you want blacklisted.
     DRAGONS = []  # User id of sudo users
     DEV_USERS = []  # User id of dev users
