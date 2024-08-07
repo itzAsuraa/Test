@@ -2,7 +2,7 @@ import threading
 
 from sqlalchemy import Boolean, Column, String
 
-from MahakRobot.modules.sql import BASE, SESSION
+from MahakRobot.sql import BASE, SESSION
 
 
 class Permissions(BASE):
