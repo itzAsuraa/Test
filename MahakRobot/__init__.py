@@ -9,6 +9,8 @@ from aiohttp import ClientSession
 from pyrogram import Client
 from telethon import TelegramClient
 
+from .handlers import CustomCommandHandler
+
 StartTime = time.time()
 
 # Enable logging
