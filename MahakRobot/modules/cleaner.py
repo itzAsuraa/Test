@@ -4,7 +4,7 @@ from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 
 # Ensure you import ALLOW_EXCL from the correct module
-from MahakRobot.config import ALLOW_EXCL  # Adjust the import path if needed
+#from MahakRobot.config import ALLOW_EXCL  # Adjust the import path if needed
 
 from MahakRobot import CustomCommandHandler, dispatcher
 from MahakRobot.modules.disable import DisableAbleCommandHandler
@@ -15,6 +15,11 @@ from MahakRobot.modules.helper_funcs.chat_status import (
     user_admin,
 )
 from MahakRobot.modules.sql import cleaner_sql as sql
+try:
+    from MahakRobot.config import ALLOW_EXCL
+except ImportError:
+    ALLOW_EXCL = True  # or False
+
 
 CMD_STARTERS = ("/", "!") if ALLOW_EXCL else "/"
 BLUE_TEXT_CLEAN_GROUP = 13
