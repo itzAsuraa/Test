@@ -6,7 +6,8 @@ from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
 import MahakRobot.modules.sql.blacklistusers_sql as sql
-from MahakRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, dispatcher
+#from MahakRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, dispatcher
+from MahakRobot import DEMONS, DEV_USERS, DRAGONS, TIGERS, WOLVES, dispatcher
 from MahakRobot.modules.helper_funcs.chat_status import dev_plus
 from MahakRobot.modules.helper_funcs.extraction import (
     extract_user,
