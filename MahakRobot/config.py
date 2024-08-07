@@ -56,8 +56,7 @@ class Config(object):
 
     HEROKU_API_KEY =  ""
 
-    LASTFM_API_KEY =  "
-    "
+    LASTFM_API_KEY =  ""
     
     # Optional fields
     
