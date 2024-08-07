@@ -14,9 +14,19 @@ from MahakRobot.modules.helper_funcs.extraction import (
 )
 from MahakRobot.modules.log_channel import gloggable
 
-BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
-BLABLEUSERS = [OWNER_ID] + DEV_USERS
+#BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
+#BLABLEUSERS = [OWNER_ID] + DEV_USERS
 
+
+from MahakRobot.config import OWNER_ID, DEV_USERS, DRAGONS, WOLVES, DEMONS
+
+# Convert sets to lists if they were sets
+DEV_USERS = list(DEV_USERS)
+DRAGONS = list(DRAGONS)
+WOLVES = list(WOLVES)
+DEMONS = list(DEMONS)
+
+BLACKLISTWHITELIST = [OWNER_ID] + DEV_USERS + DRAGONS + WOLVES + DEMONS
 
 @dev_plus
 @gloggable
