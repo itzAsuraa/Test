@@ -7,6 +7,9 @@ from MahakRobot import LOGGER
 from MahakRobot.modules.users import get_user_id
 
 
+# If DEV_USERS, DRAGONS, WOLVES, and DEMONS are defined in another module, import them:
+from MahakRobot.config import DEV_USERS, DRAGONS, WOLVES, DEMONS
+
 def id_from_reply(message):
     prev_message = message.reply_to_message
     if not prev_message:
